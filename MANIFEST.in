@@ -1,0 +1,8 @@
+include LICENSE
+include README.md
+include CHANGELOG.md
+include Makefile
+include compose.yaml
+recursive-include tests *.py
+prune tests/__pycache__
+global-exclude *.py[cod]

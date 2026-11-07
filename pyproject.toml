@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vidb"
+dynamic = ["version"]
+description = "Edit database rows in your text editor, like vidir does for files"
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE"]
+dependencies = ["SQLAlchemy>=2.0"]
+
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: System Administrators",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Database",
+    "Topic :: Utilities",
+]
+
+[project.optional-dependencies]
+postgres = ["psycopg[binary]>=3"]
+mysql = ["pymysql", "cryptography"]   # caching_sha2_password needs it
+test = ["pytest", "pyflakes", "psycopg[binary]>=3", "pymysql", "cryptography"]
+
+[project.scripts]
+vidb = "vidb.cli:main"
+
+[tool.setuptools]
+packages = ["vidb"]
+
+[tool.setuptools.dynamic]
+version = { attr = "vidb.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

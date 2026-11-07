@@ -1,0 +1,56 @@
+# Throwaway databases for the integration suites.
+#
+#   docker compose up -d --wait
+#   export VIDB_TEST_PG_URI='postgresql+psycopg://vidb:throwaway@127.0.0.1:55432/scratch'
+#   export VIDB_TEST_MYSQL_URI='mysql+pymysql://vidb:throwaway@127.0.0.1:33061/scratch'
+#   export VIDB_TEST_MARIADB_URI='mysql+pymysql://vidb:throwaway@127.0.0.1:33062/scratch'
+#   pytest
+#   docker compose down -v
+#
+# Ports are bound to 127.0.0.1 only, and the passwords are throwaway values: this
+# file is for local test runs, not for anything reachable from outside.
+
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: vidb
+      POSTGRES_PASSWORD: throwaway
+      POSTGRES_DB: scratch
+    ports:
+      - 127.0.0.1:55432:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vidb -d scratch"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_USER: vidb
+      MYSQL_PASSWORD: throwaway
+      MYSQL_ROOT_PASSWORD: throwaway
+      MYSQL_DATABASE: scratch
+    ports:
+      - 127.0.0.1:33061:3306
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uvidb -pthrowaway --silent"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
+
+  mariadb:
+    image: mariadb:11
+    environment:
+      MARIADB_USER: vidb
+      MARIADB_PASSWORD: throwaway
+      MARIADB_ROOT_PASSWORD: throwaway
+      MARIADB_DATABASE: scratch
+    ports:
+      - 127.0.0.1:33062:3306
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 3s
+      timeout: 5s
+      retries: 30
