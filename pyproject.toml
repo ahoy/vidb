@@ -7,7 +7,7 @@ name = "vidb"
 dynamic = ["version"]
 description = "Edit database rows in your text editor, like vidir does for files"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11"
 license = "MIT"
 license-files = ["LICENSE"]
 dependencies = ["SQLAlchemy>=2.0"]
@@ -19,11 +19,10 @@ classifiers = [
     "Intended Audience :: System Administrators",
     "Operating System :: POSIX",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "Topic :: Database",
     "Topic :: Utilities",
 ]

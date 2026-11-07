@@ -465,5 +465,7 @@ def test_version_is_single_sourced():
 
     import vidb
 
-    assert md.version("vidb") == vidb.__version__
+    assert md.version("vidb") == vidb.__version__, (
+        f"installed metadata says {md.version('vidb')} but the source says "
+        f"{vidb.__version__}; reinstall (pip install -e .) after a version bump")
     assert vidb.__version__.count(".") == 2

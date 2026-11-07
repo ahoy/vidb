@@ -139,7 +139,7 @@ runs SQLite plus MySQL alone. MariaDB is not redundant with MySQL: it implements
 `json` as `longtext`, so the same column takes a different shape in each.
 
 CI (`.github/workflows/tests.yml`) runs SQLite plus all three servers on Python
-3.9 and 3.13, the floor and the newest release claimed in `pyproject.toml`.
+3.11 and 3.14, the floor and the newest release claimed in `pyproject.toml`.
 
 ## Contributing
 
