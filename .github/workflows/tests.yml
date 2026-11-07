@@ -6,22 +6,25 @@ on:
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    # Pinned, not ubuntu-latest: that label moved to Ubuntu 26.04 and silently
+    # changed which interpreters the matrix below can install.
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.13"
       - run: pip install pyflakes
       - run: make lint
 
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
-        # 3.9 is the floor claimed in pyproject.toml; 3.13 is the newest release
-        # the libraries here are known to support.
+        # 3.9 is the floor claimed in pyproject.toml, and setup-python has no
+        # 3.9 build for Ubuntu 26.04, which is what ubuntu-latest points at now.
+        # 3.13 is the newest CPython the whole dependency set supports.
         python-version: ["3.9", "3.13"]
     services:
       # Pinned to the versions the integration suite was written against; a
@@ -76,8 +79,8 @@ jobs:
       VIDB_TEST_MYSQL_URI: mysql+pymysql://vidb:throwaway@127.0.0.1:3306/scratch
       VIDB_TEST_MARIADB_URI: mysql+pymysql://vidb:throwaway@127.0.0.1:3307/scratch
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
           python-version: ${{ matrix.python-version }}
       - run: pip install -e '.[test]'

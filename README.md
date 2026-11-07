@@ -143,6 +143,7 @@ CI (`.github/workflows/tests.yml`) runs SQLite plus all three servers on Python
 
 ## Contributing
 
-`make lint` and `make test` must pass; `make services-down` cleans up. Commit
+`make lint` and `make test` must pass with the virtualenv active (or pass it
+explicitly, `make PYTHON=.venv/bin/python test`); `make services-down` cleans up. Commit
 messages follow [Conventional Commits](https://www.conventionalcommits.org/)
 (`fix(scope): ...`, `feat(scope): ...`).
